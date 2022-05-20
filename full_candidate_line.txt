@@ -1,0 +1,589 @@
+`timescale 1ns / 1ns
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 30.03.2022 22:20:33
+// Design Name: 
+// Module Name: condidate
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module condidate (
+    input clk,rst,
+  output reg [323:0] D,
+  input [323:0] in,
+  output reg[323:0] out
+ 
+);
+
+ reg [6:0] state,nxt_state;
+reg [3:0] i,j,w,m,z,k,l,pos,n;
+reg done;
+reg [9:0] match;
+  
+reg [3:0] c[8:0][8:0];
+reg B[8:0][8:0][9:1];
+reg A[8:0][8:0][9:1];
+reg [3:0] x[0:2];
+reg [3:0] y[0:2];
+
+
+parameter s0 = 4'b0000, s1 = 4'b0001, s2 = 4'b0010, s3 = 4'b0011, s4 = 4'b0100, s5 = 4'b0101, s6 = 4'b0110, 
+s7 = 4'b0111, s8 = 4'b1000, s9 = 4'b1001, s10 = 4'b1010, s11 = 4'b1011, s12 = 4'b1100, s13 = 4'b1101, s14 = 4'b1110,
+s15 = 4'b1111,s16 = 5'b10000, s17 = 5'b10001,s18 = 5'b10010,s19 = 5'b10011,s20 = 5'b10100,s21 = 5'b10101,s22 = 5'b10110,
+s23 = 5'b10111,s24 = 5'b11000,s25 = 5'b11001,s26 = 5'b11010, s27 = 5'b11011 ,s28 = 5'b11100,s29 = 5'b11101, s30 = 5'b11110, s31 = 5'b11111,s32 = 6'b100000,
+s33 = 6'b100001, s34 = 6'b100010, s35 = 6'b100011, s36 = 6'b100100, s37 = 6'b100101, s38 = 6'b100110, s39 = 6'b100111,
+    s40 = 6'b101000,s41 = 6'b101001, s42 = 6'b101010, s43 = 6'b101011, s44 = 6'b101100,s45 = 6'b101101, s46 = 6'b101110,s47 = 6'b101111,s48 = 6'b110000,s49 = 6'b110001,
+s50 = 6'b110010,s51 = 6'b110011,s52 = 6'b110100,s53 = 6'b110101, s54 = 6'b110110,s55 = 6'b110111,s56 = 6'b111000, s57 = 6'b111001, s58 = 6'b111010, s59 = 6'b111011;
+
+always @(posedge clk or posedge rst) begin
+    if(rst == 1) state <= s0;
+    else if(state != nxt_state) state <= nxt_state;
+    else begin
+      case (state)
+        s0 : begin
+        in = 324'b010100110000000001110000000000000000011000000000000110010101000000000000000010011000000000000000000001100000100000000000000001100000000000000011010000000000100000000011000000000001011100000000000000100000000000000110000001100000000000000000001010000000000000000000010000011001000000000101000000000000000010000000000001111001;
+           c[0][0] = in[323:320];
+           c[0][1] = in[319:316];
+           c[0][2] = in[315:312];
+           c[0][3] = in[311:308];
+           c[0][4] = in[307:304];
+           c[0][5] = in[303:300];
+           c[0][6] = in[299:296];
+           c[0][7] = in[295:292];
+           c[0][8] = in[291:290];
+           c[1][0] = in[287:284];
+           c[1][1] = in[283:280];
+           c[1][2] = in[279:276];
+           c[1][3] = in[275:272];
+           c[1][4] = in[271:268];
+           c[1][5] = in[267:264];
+           c[1][6] = in[263:260];
+           c[1][7] = in[259:256];
+           c[1][8] = in[255:252];
+           c[2][0] = in[251:248];
+           c[2][1] = in[247:244];
+           c[2][2] = in[243:240];
+           c[2][3] = in[239:236];
+           c[2][4] = in[235:232];
+           c[2][5] = in[231:228];
+           c[2][6] = in[227:224];
+           c[2][7] = in[223:220];
+           c[2][8] = in[219:216];
+           c[3][0] = in[215:212];
+           c[3][1] = in[211:208];
+           c[3][2] = in[207:204];
+           c[3][3] = in[203:200];
+           c[3][4] = in[199:196];
+           c[3][5] = in[195:192];
+           c[3][6] = in[191:190];
+           c[3][7] = in[187:184];
+           c[3][8] = in[183:180];
+           c[4][0] = in[179:176];
+           c[4][1] = in[175:172];
+           c[4][2] = in[171:168];
+           c[4][3] = in[167:164];
+           c[4][4] = in[163:160];
+           c[4][5] = in[159:156];
+           c[4][6] = in[155:152];
+           c[4][7] = in[151:148];
+           c[4][8] = in[147:144];
+           c[5][0] = in[143:140];
+           c[5][1] = in[139:136];
+           c[5][2] = in[135:132];
+           c[5][3] = in[131:128];
+           c[5][4] = in[127:124];
+           c[5][5] = in[123:120];
+           c[5][6] = in[119:116];
+           c[5][7] = in[115:112];
+           c[5][8] = in[111:108];
+           c[6][0] = in[107:104];
+           c[6][1] = in[103:100];
+           c[6][2] = in[99:96];
+           c[6][3] = in[95:92];
+           c[6][4] = in[91:88];
+           c[6][5] = in[87:84];
+           c[6][6] = in[83:80];
+           c[6][7] = in[79:76];
+           c[6][8] = in[75:72];
+           c[7][0] = in[71:68];
+           c[7][1] = in[67:64];
+           c[7][2] = in[63:60];
+           c[7][3] = in[59:56];
+           c[7][4] = in[55:52];
+           c[7][5] = in[51:48];
+           c[7][6] = in[47:44];
+           c[7][7] = in[43:40];
+           c[7][8] = in[39:36];
+           c[8][0] = in[35:32];
+           c[8][1] = in[31:28];
+           c[8][2] = in[27:24];
+           c[8][3] = in[23:20];
+           c[8][4] = in[19:16];
+           c[8][5] = in[15:12];
+           c[8][6] = in[11:8];
+           c[8][7] = in[7:4];
+           c[8][8] = in[3:0];
+           nxt_state = s17;
+        end
+        s1 : begin
+        k = 4'b0000;
+        l = 4'b0000;
+        w = 4'b0000;
+        nxt_state = s2;
+        end
+        s2 : begin 
+            m = 1;
+            nxt_state = s3;
+        end
+        s3 : begin
+            pos = 0;
+            i = k;
+            j = l;
+            if(c[i][j] == m) nxt_state = s4;
+            else nxt_state = s5;
+        end
+        s4 : begin
+            m = m + 1;
+            if(m == 10) nxt_state = s6;
+            else nxt_state = s3;
+        end
+        s5 : begin
+            j = j + 1;
+            if(j == (l + 3)) nxt_state = s50;
+            else if(c[i][j] == m) nxt_state = s4;
+        end
+        s50 : begin
+        i = i + 1;
+        j = l;
+        if(i == (k + 3)) nxt_state = s9;
+        else if(c[i][j] == m) nxt_state = s4;
+        else nxt_state = s5;
+        end
+
+        s6 : begin
+            w = w + 1;
+            if(w == 1 || w == 2 || w == 4 || w == 5 || w == 7 || w == 8) nxt_state = s7; 
+            else if(w == 3 || w == 6) nxt_state = s8;
+          else nxt_state = s19;
+        end
+        s7 : begin
+             l = l + 3;
+            nxt_state = s2;
+        end
+        s8 : begin
+             l = 0;
+             k = k + 3;
+             nxt_state = s2;
+        end
+        s9 : begin 
+            i = k;
+            j = l;
+            if(c[i][j] == 0) nxt_state = s12;
+            else nxt_state = s10;
+        end 
+        s10 : begin
+            j = j + 1;
+            if(j == (l+3)) nxt_state = s11;
+            else if(c[i][j] == 0) nxt_state = s12;
+        end
+        s11 : begin
+            i = i + 1;
+            j = l;
+            if(i == (k+3)) nxt_state = s4;
+            else if(c[i][j] == 0) nxt_state = s12;
+            else nxt_state = s10;
+        end
+        s12 : begin
+            z = 0;
+            if(c[z][j] == m) nxt_state = s10;
+            else nxt_state = s13;
+        end
+        s13 : begin
+            z = z + 1;
+            if(z == 9) nxt_state = s14;
+            else if(c[z][j] == m) nxt_state = s10;
+        end
+        s14 : begin
+            z = 0;
+            if(c[i][z] == m) nxt_state = s10;
+            else nxt_state = s15;
+        end
+        s15 : begin
+            z = z + 1;
+            if(z == 9) nxt_state = s16;
+            else if(c[i][z] == m) nxt_state = s10;
+        end
+        s16 : begin
+            A[i][j][m] = 1;
+            nxt_state = s10;
+        end
+        s17 : begin
+          i = 0;
+          j = 0;
+          nxt_state = s18;
+        end
+        s18 : begin
+          A[i][j][1] = 0;
+          A[i][j][2] = 0;
+          A[i][j][3] = 0;
+          A[i][j][4] = 0;
+          A[i][j][5] = 0;
+          A[i][j][6] = 0;
+          A[i][j][7] = 0;
+          A[i][j][8] = 0;
+          A[i][j][9] = 0;
+          B[i][j][1] = 0;
+          B[i][j][2] = 0;
+          B[i][j][3] = 0;
+          B[i][j][4] = 0;
+          B[i][j][5] = 0;
+          B[i][j][6] = 0;
+          B[i][j][7] = 0;
+          B[i][j][8] = 0;
+          B[i][j][9] = 0;
+          
+          j = j + 1;
+          if(j == 9) begin
+            nxt_state = s53;
+          end
+          else nxt_state = s18;
+        end
+        s53 : begin
+            i= i + 1;
+            j = 0;
+            if(i == 9) nxt_state = s1;
+            else nxt_state = s18;
+        end
+        s19 : begin
+            k = 0;
+            l = 0;
+            w = 0;
+            nxt_state = s20;
+        end
+        s20 : begin
+            m = 1;
+            nxt_state = s21;
+        end
+        s21 : begin
+        
+            pos = 0;
+            i = k;
+            j = l;
+            nxt_state = s22;
+        end
+        s22 : begin
+            if(A[i][j][m] == 1) begin
+                x[pos] = i;
+                y[pos] = j;
+                pos = pos + 1;
+            end
+            j = j + 1;
+            if(j == (l+3)) nxt_state = s51;
+            else nxt_state = s22;
+            
+        end
+        s51 : begin
+        i = i + 1;
+        j = l;
+        if(i == (k+3)) nxt_state = s23;
+        else nxt_state = s22;
+        end
+        s23 : begin
+            if(pos == 2 && (x[0] == x[1] || y[0] == y[1])) nxt_state = s25;
+            else if(pos == 3 && (((x[0] == x[1])&& (x[1] == x[2])) ||(y[0] == y[1])&& (y[1] == y[2]))) nxt_state = s26;
+            else nxt_state = s24;  
+        end
+        s24 : begin
+            m = m + 1;
+          if(m == 10) nxt_state = s42;
+            else nxt_state = s21;
+        end
+        s25 : begin
+            if(x[0] == x[1]) nxt_state = s27;
+            else nxt_state = s29;
+        end
+       s26 : begin
+            if(x[0] == x[1]) nxt_state = s31;
+            else nxt_state = s33;
+        end
+        s27 : begin
+            z = 0;
+            if(z == y[0] || z == y[1]) nxt_state = s28;
+            else if(A[x[0]][z][m] == 1) begin
+                A[x[0]][z][m] = 0;
+            end
+            nxt_state = s28;
+        end
+        s28 : begin
+            z = z + 1;
+            if(z == 9) nxt_state = s24;
+            else if(z == y[0] || z == y[1]) nxt_state = s28;
+             else if(A[x[0]][z][m] == 1) begin
+                A[x[0]][z][m] = 0;
+            end
+        end
+        s29 : begin
+            z = 0;
+            if(z == x[0] || z == x[1]) nxt_state = s30;
+            else if(A[z][y[0]][m] == 1) begin
+                A[z][y[0]][m] = 0;
+            end
+            nxt_state = s30;
+        end
+         s30 : begin
+            z = z + 1;
+            if(z == 9) nxt_state = s24;
+            else if(z == x[0] || z == x[1]) nxt_state = s30;
+             else if(A[z][y[0]][m] == 1) begin
+                A[z][y[0]][m] = 0;
+            end
+        end
+         s31 : begin
+            z = 0;
+            if(z == y[0] || z == y[1] || z == y[2]) nxt_state = s32;
+            else if(A[x[0]][z][m] == 1) begin
+                A[x[0]][z][m] = 0;
+            end
+            nxt_state = s32;
+        end
+        s32 : begin
+            z = z + 1;
+            if(z == 9) nxt_state = s24;
+            else if(z == y[0] || z == y[1] || z == y[2]) nxt_state = s32;
+             else if(A[x[0]][z][m] == 1) begin
+                A[x[0]][z][m] = 0;
+            end
+        end
+        s33 : begin
+            z = 0;
+            if(z == x[0] || z == x[1] || z == x[2]) nxt_state = s34;
+            else if(A[z][y[0]][m] == 1) begin
+                A[z][y[0]][m] = 0;
+            end
+            nxt_state = s34;
+        end
+         s34 : begin
+            z = z + 1;
+            if(z == 9) nxt_state = s24;
+            else if(z == x[0] || z == x[1] || z == x[2]) nxt_state = s34;
+             else if(A[z][y[0]][m] == 1) begin
+                A[z][y[0]][m] = 0;
+            end
+        end
+        s42 : begin
+          w = w + 1;
+          if(w == 1 || w == 2 || w == 4 || w == 5 || w == 7 || w == 8) begin
+            l = l + 3;
+            nxt_state = s20;
+          end
+          else if(w == 3 || w == 6) begin
+            k = k + 3;
+            l = 0;
+            nxt_state = s20;
+          end
+          else nxt_state = s35;
+        end
+        
+        s35 : begin
+            i = 0;
+            j = 0;
+            nxt_state = s36;
+        end
+        s36 : begin
+            m = 1;
+            pos = 0;
+            if(A[i][j][m] == 1) begin
+                pos = pos + 1;
+                n = m;
+            end
+            nxt_state = s37;
+        end
+        s37 : begin
+            m = m + 1;
+            if(m == 10) nxt_state = s38;
+            else if(A[i][j][m] == 1) begin
+                pos = pos + 1;
+                n = m;
+            end
+        end
+        s38 : begin
+          if(pos == 1) begin
+                c[i][j] = n;
+            end
+            nxt_state = s39;
+        end
+        s39 : begin
+            j = j + 1;
+            if(j == 9) nxt_state = s54;
+            else nxt_state = s36;
+            end    
+            s54 : begin
+            i = i + 1;
+            j = 0;
+            if(i == 9) nxt_state = s40;
+            else nxt_state = s36;
+            end
+           
+           s40 : begin
+           i = 0;
+           j = 0;
+           m = 1;
+           match = 0;
+           nxt_state = s41;
+           end
+           
+           s41 : begin
+           if(A[i][j][m] == B[i][j][m]) begin
+           match = match + 1;
+           end
+           m = m + 1;
+           if(m == 10) nxt_state = s43;
+           end
+           
+           s43 : begin
+           j = j + 1;
+           m = 1;
+           if(j == 9) nxt_state = s44;
+           else nxt_state = s41;
+           end
+           
+           s44 : begin
+           i = i + 1;
+           j = 0;
+           if(i == 9) nxt_state = s45;
+           else nxt_state = s41;
+           end
+           
+           s45 : begin
+           if(match != 729) nxt_state = s46;
+           else nxt_state = s55;
+           end
+           s46 : begin
+           i = 0;
+           j = 0;
+           m = 1;
+           nxt_state = s47;
+           end
+           
+           s47 : begin
+           B[i][j][m] = A[i][j][m];
+           m = m + 1;
+           if(m == 10) nxt_state = s48;
+           end
+           
+           s48 : begin
+           j = j + 1;
+           m = 1;
+           if(j == 9) nxt_state = s49;
+           else nxt_state = s47;
+           end
+           s49 : begin
+           i = i + 1;
+           j = 0;
+           if(i == 9) nxt_state = s18;
+           else nxt_state = s47;
+           end
+           s55 : begin
+           out[323:320] = c[0][0];
+           out[319:316] = c[0][1];
+           out[315:312] = c[0][2];
+           out[311:308] = c[0][3];
+           out[307:304] = c[0][4];
+           out[303:300] = c[0][5];
+           out[299:296] = c[0][6];
+           out[295:292] = c[0][7];
+           out[291:290] = c[0][8];
+           out[287:284] = c[1][0];
+           out[283:280] = c[1][1];
+           out[279:276] = c[1][2];
+           out[275:272] = c[1][3];
+           out[271:268] = c[1][4];
+           out[267:264] = c[1][5];
+           out[263:260] = c[1][6];
+           out[259:256] = c[1][7];
+           out[255:252] = c[1][8];
+           out[251:248] = c[2][0];
+           out[247:244] = c[2][1];
+           out[243:240] = c[2][2];
+           out[239:236] = c[2][3];
+           out[239:236] = c[2][4];
+           out[235:232] = c[2][5];
+           out[231:228] = c[2][6];
+           out[227:224] = c[2][7];
+           out[223:220] = c[2][8];
+           out[219:216] = c[3][0];
+           out[215:212] = c[3][1];
+           out[211:208] = c[3][2];
+           out[207:204] = c[3][3];
+           out[203:200] = c[3][4];
+           out[199:196] = c[3][5];
+           out[195:192] = c[3][6];
+           out[191:190] = c[3][7];
+           out[187:184] = c[3][8];
+           out[183:180] = c[4][0];
+           out[179:176] = c[4][1];
+           out[175:172] = c[4][2];
+           out[171:168] = c[4][3];
+           out[167:164] = c[4][4];
+           out[163:160] = c[4][5];
+           out[159:156] = c[4][6];
+           out[155:152] = c[4][7];
+           out[151:148] = c[4][8];
+           out[147:144] = c[5][0];
+           out[143:140] = c[5][1];
+           out[139:136] = c[5][2];
+           out[135:132] = c[5][3];
+           out[131:128] = c[5][4];
+           out[127:124] = c[5][5];
+           out[123:120] = c[5][6];
+           out[119:116] = c[5][7];
+           out[115:112] = c[5][8];
+           out[111:108] = c[6][0];
+           out[107:104] = c[6][1];
+           out[103:100] = c[6][2];
+           out[99:96] = c[6][3];
+           out[95:92] = c[6][4];
+           out[91:88] = c[6][5];
+           out[87:84] = c[6][6];
+           out[83:80] = c[6][7];
+           out[79:76] = c[6][8];
+           out[75:72] = c[7][0];
+           out[71:68] = c[7][1];
+           out[67:64] = c[7][2];
+           out[63:60] = c[7][3];
+           out[59:56] = c[7][4];
+           out[55:52] = c[7][5];
+           out[51:48] = c[7][6];
+           out[47:44] = c[7][7];
+           out[43:40] = c[7][8];
+           out[39:36] = c[8][0];
+           out[35:32] = c[8][1];
+           out[31:28] = c[8][2];
+           out[27:24] = c[8][3];
+           out[23:20] = c[8][4];
+           out[19:16] = c[8][5];
+           out[15:12] = c[8][6];
+           out[11:8] = c[8][7];
+           out[7:4] = c[8][8];
+       
+           nxt_state = s56;
+           end
+      endcase
+    end
+
+end
+    
+endmodule
